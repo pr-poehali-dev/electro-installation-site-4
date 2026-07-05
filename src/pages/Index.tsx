@@ -83,17 +83,34 @@ const WORK_TYPES = [
   { key: 'office', label: 'Офис', rate: 750 },
 ];
 
+const WEAK_CURRENT_ITEMS = [
+  { key: 'video', label: 'Видеонаблюдение', unit: 'камера', rate: 2500, icon: 'Video' },
+  { key: 'lan', label: 'Локальная сеть', unit: 'точка', rate: 600, icon: 'Network' },
+  { key: 'alarm', label: 'Охранная сигнализация', unit: 'датчик', rate: 1600, icon: 'Siren' },
+  { key: 'fire', label: 'Пожарная сигнализация', unit: 'точка', rate: 1800, icon: 'FlameKindling' },
+  { key: 'access', label: 'Система доступа', unit: 'точка', rate: 5500, icon: 'KeyRound' },
+  { key: 'barrier', label: 'Шлагбаум', unit: 'шт', rate: 35000, icon: 'ParkingSquare' },
+];
+
 const scrollTo = (id: string) =>
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 
 const Index = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [calcMode, setCalcMode] = useState<'electric' | 'weak'>('electric');
   const [area, setArea] = useState(50);
   const [type, setType] = useState('flat');
   const [urgent, setUrgent] = useState(false);
+  const [weakType, setWeakType] = useState('video');
+  const [qty, setQty] = useState(4);
 
   const rate = WORK_TYPES.find((w) => w.key === type)!.rate;
-  const total = Math.round(area * rate * (urgent ? 1.25 : 1));
+  const electricTotal = Math.round(area * rate * (urgent ? 1.25 : 1));
+
+  const weakItem = WEAK_CURRENT_ITEMS.find((w) => w.key === weakType)!;
+  const weakTotal = Math.round(qty * weakItem.rate * (urgent ? 1.25 : 1));
+
+  const total = calcMode === 'electric' ? electricTotal : weakTotal;
 
   return (
     <div className="min-h-screen bg-background text-foreground font-body">
@@ -345,35 +362,98 @@ EM <span className="text-primary">GROUP</span>
               </p>
             </div>
             <Card className="bg-card border-border p-8">
-              <label className="block text-sm font-medium mb-3">Тип объекта</label>
-              <div className="grid grid-cols-3 gap-2 mb-6">
-                {WORK_TYPES.map((w) => (
-                  <button
-                    key={w.key}
-                    onClick={() => setType(w.key)}
-                    className={`py-2.5 rounded-lg text-sm font-medium border transition-colors ${
-                      type === w.key
-                        ? 'bg-primary text-primary-foreground border-primary'
-                        : 'border-border text-muted-foreground hover:border-primary'
-                    }`}
-                  >
-                    {w.label}
-                  </button>
-                ))}
+              <div className="grid grid-cols-2 gap-2 mb-6">
+                <button
+                  onClick={() => setCalcMode('electric')}
+                  className={`flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-semibold border transition-colors ${
+                    calcMode === 'electric'
+                      ? 'bg-primary text-primary-foreground border-primary'
+                      : 'border-border text-muted-foreground hover:border-primary'
+                  }`}
+                >
+                  <Icon name="Zap" size={16} /> Электромонтаж
+                </button>
+                <button
+                  onClick={() => setCalcMode('weak')}
+                  className={`flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-semibold border transition-colors ${
+                    calcMode === 'weak'
+                      ? 'bg-accent text-accent-foreground border-accent'
+                      : 'border-border text-muted-foreground hover:border-accent'
+                  }`}
+                >
+                  <Icon name="Cable" size={16} /> Слаботочные системы
+                </button>
               </div>
 
-              <div className="flex justify-between text-sm font-medium mb-3">
-                <span>Площадь</span>
-                <span className="text-primary">{area} м²</span>
-              </div>
-              <Slider
-                value={[area]}
-                onValueChange={(v) => setArea(v[0])}
-                min={10}
-                max={300}
-                step={5}
-                className="mb-6"
-              />
+              {calcMode === 'electric' ? (
+                <>
+                  <label className="block text-sm font-medium mb-3">Тип объекта</label>
+                  <div className="grid grid-cols-3 gap-2 mb-6">
+                    {WORK_TYPES.map((w) => (
+                      <button
+                        key={w.key}
+                        onClick={() => setType(w.key)}
+                        className={`py-2.5 rounded-lg text-sm font-medium border transition-colors ${
+                          type === w.key
+                            ? 'bg-primary text-primary-foreground border-primary'
+                            : 'border-border text-muted-foreground hover:border-primary'
+                        }`}
+                      >
+                        {w.label}
+                      </button>
+                    ))}
+                  </div>
+
+                  <div className="flex justify-between text-sm font-medium mb-3">
+                    <span>Площадь</span>
+                    <span className="text-primary">{area} м²</span>
+                  </div>
+                  <Slider
+                    value={[area]}
+                    onValueChange={(v) => setArea(v[0])}
+                    min={10}
+                    max={300}
+                    step={5}
+                    className="mb-6"
+                  />
+                </>
+              ) : (
+                <>
+                  <label className="block text-sm font-medium mb-3">Тип системы</label>
+                  <div className="grid grid-cols-2 gap-2 mb-6">
+                    {WEAK_CURRENT_ITEMS.map((w) => (
+                      <button
+                        key={w.key}
+                        onClick={() => {
+                          setWeakType(w.key);
+                          setQty(w.key === 'barrier' ? 1 : 4);
+                        }}
+                        className={`flex items-center gap-2 py-2.5 px-3 rounded-lg text-sm font-medium border transition-colors ${
+                          weakType === w.key
+                            ? 'bg-accent text-accent-foreground border-accent'
+                            : 'border-border text-muted-foreground hover:border-accent'
+                        }`}
+                      >
+                        <Icon name={w.icon} size={16} />
+                        {w.label}
+                      </button>
+                    ))}
+                  </div>
+
+                  <div className="flex justify-between text-sm font-medium mb-3">
+                    <span>Количество ({weakItem.unit})</span>
+                    <span className="text-accent">{qty}</span>
+                  </div>
+                  <Slider
+                    value={[qty]}
+                    onValueChange={(v) => setQty(v[0])}
+                    min={1}
+                    max={weakItem.key === 'barrier' ? 4 : 30}
+                    step={1}
+                    className="mb-6"
+                  />
+                </>
+              )}
 
               <button
                 onClick={() => setUrgent((v) => !v)}
@@ -389,16 +469,30 @@ EM <span className="text-primary">GROUP</span>
                 <span className="text-sm">Срочный выезд (+25%)</span>
               </button>
 
-              <div className="rounded-xl bg-primary/10 border border-primary/30 p-5 flex items-end justify-between mb-6">
+              <div
+                className={`rounded-xl border p-5 flex items-end justify-between mb-6 ${
+                  calcMode === 'electric'
+                    ? 'bg-primary/10 border-primary/30'
+                    : 'bg-accent/10 border-accent/30'
+                }`}
+              >
                 <span className="text-sm text-muted-foreground">Итого от</span>
-                <span className="font-display font-bold text-4xl text-primary text-glow">
+                <span
+                  className={`font-display font-bold text-4xl text-glow ${
+                    calcMode === 'electric' ? 'text-primary' : 'text-accent'
+                  }`}
+                >
                   {total.toLocaleString('ru-RU')} ₽
                 </span>
               </div>
 
               <Button
                 onClick={() => scrollTo('contacts')}
-                className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-semibold"
+                className={`w-full font-semibold ${
+                  calcMode === 'electric'
+                    ? 'bg-primary text-primary-foreground hover:bg-primary/90'
+                    : 'bg-accent text-accent-foreground hover:bg-accent/90'
+                }`}
               >
                 Заказать этот расчёт
               </Button>
