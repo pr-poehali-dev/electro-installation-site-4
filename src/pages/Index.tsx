@@ -34,6 +34,15 @@ const SERVICES = [
   { icon: 'ShieldCheck', title: 'Заземление и УЗО', desc: 'Защита от короткого замыкания и утечек тока.' },
 ];
 
+const WEAK_CURRENT_SERVICES = [
+  { icon: 'Video', title: 'Видеонаблюдение', desc: 'Монтаж и обслуживание систем видеонаблюдения любой сложности.' },
+  { icon: 'Network', title: 'Локальные сети', desc: 'Проектирование и монтаж локальных вычислительных сетей (LAN).' },
+  { icon: 'Siren', title: 'Охранная сигнализация', desc: 'Установка и обслуживание охранных систем и датчиков.' },
+  { icon: 'FlameKindling', title: 'Пожарная сигнализация', desc: 'Монтаж и ТО пожарных систем по всем нормам безопасности.' },
+  { icon: 'KeyRound', title: 'Системы доступа', desc: 'Домофоны, СКУД, электронные замки и контроль доступа.' },
+  { icon: 'ParkingSquare', title: 'Шлагбаумы', desc: 'Установка и настройка автоматических шлагбаумов и ворот.' },
+];
+
 const PORTFOLIO = [
   { title: 'ЖК «Северный»', tag: '3-комн. квартира', num: '01' },
   { title: 'Офис IT-компании', tag: '400 м²', num: '02' },
@@ -48,6 +57,12 @@ const PRICES = [
   { name: 'Сборка электрощита', price: 'от 4 500 ₽' },
   { name: 'Установка люстры', price: 'от 1 200 ₽' },
   { name: 'Монтаж проводки «под ключ» (м²)', price: 'от 900 ₽' },
+  { name: 'Установка камеры видеонаблюдения', price: 'от 2 500 ₽' },
+  { name: 'Монтаж точки локальной сети', price: 'от 600 ₽' },
+  { name: 'Установка охранной сигнализации', price: 'от 8 000 ₽' },
+  { name: 'Монтаж пожарной сигнализации (точка)', price: 'от 1 800 ₽' },
+  { name: 'Установка домофона/СКУД', price: 'от 5 500 ₽' },
+  { name: 'Установка шлагбаума', price: 'от 35 000 ₽' },
 ];
 
 const REVIEWS = [
@@ -203,7 +218,9 @@ EM <span className="text-primary">GROUP</span>
             <p className="text-muted-foreground mb-6">
               «EM Group» — команда сертифицированных электриков с допусками до
               1000В. С 2014 года мы выполнили более 2400 объектов: от замены
-              розетки до полного электроснабжения зданий.
+              розетки до полного электроснабжения зданий, а также монтажа и
+              обслуживания слаботочных систем — видеонаблюдения, сигнализаций
+              и систем доступа.
             </p>
             <div className="grid sm:grid-cols-2 gap-4">
               {[
@@ -249,6 +266,29 @@ EM <span className="text-primary">GROUP</span>
                 className="group bg-card border-border p-7 hover:border-primary transition-colors"
               >
                 <span className="grid place-items-center w-14 h-14 rounded-xl bg-primary/15 text-primary mb-5 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                  <Icon name={s.icon} size={26} />
+                </span>
+                <h3 className="font-display font-semibold text-xl mb-2 uppercase">{s.title}</h3>
+                <p className="text-muted-foreground text-sm">{s.desc}</p>
+              </Card>
+            ))}
+          </div>
+
+          <div className="flex items-center gap-3 mt-16 mb-10">
+            <span className="grid place-items-center w-11 h-11 rounded-lg bg-accent/15 text-accent shrink-0">
+              <Icon name="Cable" size={22} />
+            </span>
+            <h3 className="font-display font-bold text-2xl md:text-3xl uppercase">
+              Слаботочные <span className="text-accent">системы</span>
+            </h3>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {WEAK_CURRENT_SERVICES.map((s) => (
+              <Card
+                key={s.title}
+                className="group bg-card border-border p-7 hover:border-accent transition-colors"
+              >
+                <span className="grid place-items-center w-14 h-14 rounded-xl bg-accent/15 text-accent mb-5 group-hover:bg-accent group-hover:text-accent-foreground transition-colors">
                   <Icon name={s.icon} size={26} />
                 </span>
                 <h3 className="font-display font-semibold text-xl mb-2 uppercase">{s.title}</h3>
