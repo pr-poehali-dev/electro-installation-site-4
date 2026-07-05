@@ -92,7 +92,7 @@ const Index = () => {
             <span className="grid place-items-center w-9 h-9 rounded-lg bg-primary text-primary-foreground animate-flicker">
               <Icon name="Zap" size={20} />
             </span>
-            ВОЛЬТ<span className="text-primary">ПРО</span>
+EM <span className="text-primary">GROUP</span>
           </a>
           <nav className="hidden lg:flex items-center gap-6">
             {NAV.map((n) => (
@@ -201,7 +201,7 @@ const Index = () => {
               Профессионалы, которым <span className="text-primary">доверяют ток</span>
             </h2>
             <p className="text-muted-foreground mb-6">
-              «ВольтПро» — команда сертифицированных электриков с допусками до
+              «EM Group» — команда сертифицированных электриков с допусками до
               1000В. С 2014 года мы выполнили более 2400 объектов: от замены
               розетки до полного электроснабжения зданий.
             </p>
@@ -458,7 +458,7 @@ const Index = () => {
             <div className="space-y-4">
               {[
                 { icon: 'Phone', t: '+7 (900) 123-45-67' },
-                { icon: 'Mail', t: 'info@voltpro.ru' },
+                { icon: 'Mail', t: 'info@emgroup.ru' },
                 { icon: 'MapPin', t: 'Москва, ул. Электриков, 12' },
                 { icon: 'Clock', t: 'Ежедневно 08:00 — 22:00' },
               ].map((c) => (
@@ -506,7 +506,7 @@ const Index = () => {
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 border-t border-border text-sm text-muted-foreground">
           <div className="flex items-center gap-2 font-display font-bold text-foreground">
             <Icon name="Zap" size={18} className="text-primary" />
-            ВОЛЬТПРО © 2026
+EM GROUP © 2026
           </div>
           <span>Электромонтажные работы под ключ</span>
         </div>
