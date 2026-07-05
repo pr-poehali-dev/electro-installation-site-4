@@ -13,6 +13,8 @@ import {
 
 const HERO_IMG =
   'https://cdn.poehali.dev/projects/9d8004e0-6949-473f-8b23-c8113f3309e0/files/38332775-3dd4-4eba-91a9-6549117a8fb1.jpg';
+const LOGO_IMG =
+  'https://cdn.poehali.dev/projects/9d8004e0-6949-473f-8b23-c8113f3309e0/files/05ed288a-1dd0-4568-b9d0-3a60c0ea6e4d.jpg';
 
 const NAV = [
   { id: 'about', label: 'О компании' },
@@ -121,10 +123,12 @@ const Index = () => {
             href="#top"
             className="flex items-center gap-2 font-display font-bold text-xl tracking-wide"
           >
-            <span className="grid place-items-center w-9 h-9 rounded-lg bg-primary text-primary-foreground animate-flicker">
-              <Icon name="Zap" size={20} />
-            </span>
-EM <span className="text-primary">GROUP</span>
+            <img
+              src={LOGO_IMG}
+              alt="EM Group"
+              className="w-9 h-9 rounded-lg object-cover animate-flicker"
+            />
+            EM <span className="text-primary">GROUP</span>
           </a>
           <nav className="hidden lg:flex items-center gap-6">
             {NAV.map((n) => (
@@ -592,7 +596,7 @@ EM <span className="text-primary">GROUP</span>
             <div className="space-y-4">
               {[
                 { icon: 'Phone', t: '+7 (900) 123-45-67' },
-                { icon: 'Mail', t: 'info@emgroup.ru' },
+                { icon: 'Mail', t: 'Emgroup25@yandex.ru' },
                 { icon: 'MapPin', t: 'Москва, ул. Электриков, 12' },
                 { icon: 'Clock', t: 'Ежедневно 08:00 — 22:00' },
               ].map((c) => (
@@ -639,8 +643,8 @@ EM <span className="text-primary">GROUP</span>
         </Accordion>
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 border-t border-border text-sm text-muted-foreground">
           <div className="flex items-center gap-2 font-display font-bold text-foreground">
-            <Icon name="Zap" size={18} className="text-primary" />
-EM GROUP © 2026
+            <img src={LOGO_IMG} alt="EM Group" className="w-6 h-6 rounded object-cover" />
+            EM GROUP © 2026
           </div>
           <span>Электромонтажные работы под ключ</span>
         </div>
