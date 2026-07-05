@@ -597,7 +597,7 @@ const Index = () => {
               {[
                 { icon: 'Phone', t: '+7 (900) 123-45-67' },
                 { icon: 'Mail', t: 'Emgroup25@yandex.ru' },
-                { icon: 'MapPin', t: 'Москва, ул. Электриков, 12' },
+                { icon: 'MapPin', t: 'г. Пермь, шоссе Космонавтов, 203, оф. 2' },
                 { icon: 'Clock', t: 'Ежедневно 08:00 — 22:00' },
               ].map((c) => (
                 <div key={c.t} className="flex items-center gap-4">
